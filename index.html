@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>SAT Mock Test</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <!-- Google Fonts (Noto Sans KR) -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Material Icons (선택) -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar" id="sidebar">
+      <h2>SAT Mock</h2>
+      <div class="profile-box">
+        <div class="profile-img"></div>
+        <div class="profile-name">Semicolon</div>
+        <div style="font-size:0.9em;color:#aaa;">User</div>
+      </div>
+      <ul>
+        <li><button onclick="showTestList()">시험 선택</button></li>
+        <li><button onclick="showUpload()">시험 업로드</button></li>
+        <li><button>내 정보</button></li>
+      </ul>
+    </nav>
+    <div id="main-content" class="main-content"></div>
+    <div id="sat-navigator-popup" class="sat-navigator-popup" style="display:none;"></div>
+  </div>
+  <script src="scripts/main.js"></script>
+  <script src="scripts/test.js"></script>
+  <script src="scripts/timer.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# 제목: Digital SAT Practice Test 1
+
+## Section 1, Module 1: Reading and Writing
+
+### 본문
+Marie Tharp was an American geologist and oceanographic cartographer.
+...
+
+### 문제 1
+Which choice most effectively uses information from the given sentences to specify what type of mapping work Tharp is known for?
+
+- A. Oceanographic cartographers like Marie Tharp have significantly contributed to our understanding of the ocean floor.
+- B. The Mid-Atlantic Ridge, a key geological feature of the ocean floor, has been studied by scientists like Marie Tharp.
+- C. In the field of ocean mapping, Marie Tharp is best known for her work mapping the Mid-Atlantic Ridge, which provided critical evidence for the theory of plate tectonics.
+- D. One geologist who made remarkable contributions to ocean mapping is Marie Tharp, known for her detailed maps of the ocean floor.
+
+정답: C
+
+(이미지: image1.png)  // 필요시
