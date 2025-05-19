@@ -1,0 +1,699 @@
+body, html {
+  margin: 0; padding: 0;
+  font-family: 'Noto Sans KR', 'Pretendard', 'Inter', sans-serif;
+  background: #f7f8fa;
+  color: #222;
+}
+
+.container { display: flex; height: 100vh; }
+
+.sidebar {
+  width: 240px;
+  background: #fff;
+  border-right: 1px solid #ececec;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 30px 0 0 0;
+  box-shadow: 2px 0 8px #f0f0f0;
+}
+
+.sidebar h2 {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #1bb184;
+  margin-bottom: 40px;
+  letter-spacing: -1px;
+}
+
+.sidebar ul {
+  list-style: none; padding: 0; width: 100%;
+}
+
+.sidebar li {
+  margin: 18px 0; text-align: center;
+}
+
+.sidebar button {
+  width: 80%; padding: 12px 0;
+  border: none; background: #f4f4f4;
+  border-radius: 8px; cursor: pointer;
+  font-size: 1em; color: #333;
+  transition: background 0.2s;
+}
+.sidebar button:hover {
+  background: #e0f7ef;
+  color: #1bb184;
+}
+
+.profile-box {
+  margin-top: auto; margin-bottom: 30px;
+  text-align: center;
+}
+.profile-img {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: #e0e0e0;
+  margin: 0 auto 10px auto;
+}
+.profile-name {
+  font-weight: 600; color: #444;
+}
+
+.main-content {
+  flex: 1; padding: 50px 60px;
+  overflow-y: auto;
+  background: #f7f8fa;
+}
+
+.test-card-list {
+  display: flex; flex-wrap: wrap; gap: 32px;
+  margin-top: 30px;
+}
+.test-card {
+  width: 260px; height: 180px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px #e0e0e0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 24px 24px 20px 24px;
+  cursor: pointer;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.test-card:hover {
+  box-shadow: 0 8px 24px #b2f2e5;
+  transform: translateY(-4px) scale(1.03);
+}
+.test-card .test-title {
+  font-size: 1.1em; font-weight: 700; color: #222;
+}
+.test-card .test-desc {
+  font-size: 0.95em; color: #888; margin-top: 6px;
+}
+.test-card .test-num {
+  position: absolute; right: 24px; top: 24px;
+  font-size: 2.5em; font-weight: 700; color: #e0f7ef;
+  letter-spacing: -2px;
+}
+
+button, input[type="submit"] {
+  background: #1bb184;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:hover, input[type="submit"]:hover {
+  background: #159c6e;
+}
+
+form input[type="file"] {
+  border: none;
+  background: #f4f4f4;
+  border-radius: 6px;
+  padding: 8px;
+  margin-top: 6px;
+}
+
+.test-info, .result-box {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px #e0e0e0;
+  padding: 28px 32px;
+  margin-top: 30px;
+  font-size: 1.05em;
+}
+
+@media (max-width: 900px) {
+  .main-content { padding: 20px 8px; }
+  .test-card { width: 100%; min-width: 180px; }
+  .test-card-list { flex-direction: column; gap: 18px; }
+}
+
+/* 시험 안내/문제 헤더 */
+.test-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 0 12px 0;
+  font-size: 1.1em;
+}
+.section-title {
+  font-weight: 700;
+  font-size: 1.15em;
+  color: #222;
+}
+.timer {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #1bb184;
+}
+
+/* 시험 본문/문제 좌우 분할 */
+.test-body {
+  display: flex; gap: 32px;
+}
+.test-passage {
+  flex: 1.2;
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px 24px;
+  min-height: 320px;
+  box-shadow: 0 2px 8px #e0e0e0;
+  font-size: 1.08em;
+}
+.test-question {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px 24px;
+  min-height: 320px;
+  box-shadow: 0 2px 8px #e0e0e0;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.test-question label {
+  display: block;
+  padding: 12px 16px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: border 0.2s, background 0.2s;
+  font-size: 1em;
+}
+.test-question input[type="radio"]:checked + label {
+  border: 1.5px solid #1bb184;
+  background: #e0f7ef;
+}
+.test-question input[type="radio"] {
+  display: none;
+}
+.test-question .question-num {
+  font-size: 1.1em;
+  color: #1bb184;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.test-question .question-text {
+  font-weight: 600;
+  margin-bottom: 18px;
+  font-size: 1.08em;
+}
+.test-question .nav-btns {
+  margin-top: 30px;
+  display: flex; gap: 16px;
+  justify-content: flex-end;
+}
+
+.sat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #eaf6e9;
+  border-bottom: 2px solid #b2d8c5;
+  padding: 0 32px;
+  height: 54px;
+  font-size: 1.08em;
+}
+.sat-header-left { flex: 1; }
+.sat-header-center { flex: 1; text-align: center; }
+.sat-header-right { flex: 1; text-align: right; display: flex; align-items: center; gap: 18px; justify-content: flex-end;}
+.sat-section-title { font-weight: 600; }
+.sat-header-btn {
+  background: none;
+  border: none;
+  color: #444;
+  font-size: 1em;
+  margin: 0 8px;
+  cursor: pointer;
+  padding: 0;
+}
+.sat-timer {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #1bb184;
+  /* background: #fff; */
+  border-radius: 8px;
+  /* padding: 4px 18px; */
+  /* box-shadow: 0 1px 4px #e0e0e0; */
+  display: inline-block;
+}
+.sat-progress-bar {
+  height: 6px;
+  background: repeating-linear-gradient(90deg, #1bb184 0 10%, #eaf6e9 10% 100%);
+  margin-bottom: 0;
+}
+.sat-body {
+  display: flex;
+  gap: 0;
+  margin-top: 0;
+  height: calc(100vh - 54px - 6px - 54px);
+}
+.sat-passage {
+  flex: 1.1;
+  background: #fff;
+  border-right: 2px solid #e0e0e0;
+  padding: 36px 32px;
+  font-size: 1.08em;
+  min-width: 0;
+  overflow-y: auto;
+}
+.sat-question-area {
+  flex: 1.2;
+  background: #fff;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-y: auto;
+}
+.sat-question-area.fullwidth {
+  flex: 1 1 100% !important;
+} /* 문제 이미지 크기 조정 */
+.sat-question-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.sat-question-num {
+  background: #111;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1em;
+  border-radius: 4px;
+  padding: 4px 14px;
+  margin-right: 10px;
+}
+.sat-mark-review {
+  font-size: 0.98em;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sat-mark-icon {
+  font-size: 1.1em;
+  margin-left: 4px;
+}
+.sat-abc-icon {
+  font-size: 1.1em;
+  margin-left: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-weight: 700;
+  color: #222;
+}
+.sat-question-text {
+  font-weight: 600;
+  margin-bottom: 18px;
+  font-size: 1.08em;
+}
+.sat-choices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: 32px;
+}
+.sat-choice-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.sat-choice-input {
+  display: none;
+}
+.sat-choice-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  border: 1.5px solid #222;
+  border-radius: 8px;
+  background: #fff;
+  padding: 18px 20px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.05em;
+  transition: border 0.18s, background 0.18s;
+  position: relative;
+  min-height: 48px;
+  box-sizing: border-box;
+}
+.sat-choice-label:hover {
+  border: 2px solid #1bb184;
+  background: #f3fcf8;
+}
+.sat-choice-input:checked + .sat-choice-label {
+  border: 2px solid #1bb184;
+  background: #e0f7ef;
+}
+.sat-choice-letter {
+  font-weight: 700;
+  font-size: 1.1em;
+  min-width: 28px;
+  color: #1bb184;
+  margin-top: 2px;
+}
+.sat-choice-text {
+  flex: 1;
+  color: #222;
+  text-align: left;
+  word-break: break-word;
+}
+.sat-choice-cross {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3em;
+  color: #222;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+.sat-choice-cross:hover {
+  opacity: 1;
+}
+.sat-choice-wrap.crossed .sat-choice-label {
+  text-decoration: line-through;
+  color: #aaa;
+  background: #f5f5f5;
+  border: 1.5px solid #aaa;
+  opacity: 0.7;
+}
+.sat-choice-wrap.crossed .sat-choice-cross {
+  color: #1bb184;
+}
+.sat-choice-undo {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.98em;
+  color: #1bb184;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+.sat-footer-bar {
+  position: fixed;
+  left: 50px;
+  width: calc(100vw - 240px);
+  bottom: 0;
+  height: 48px;
+  background: #eafaf3;
+  border-top: 2px dashed #b7e5d0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  padding: 0 32px;
+  transition: all 0.2s;
+}
+
+/* 바로 아래에 위치! */
+.sat-footer-bar.fullscreen {
+  left: 0 !important;
+  right: 0 !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  border-radius: 0 !important;
+  margin-left: 0 !important;
+  position: fixed !important;
+  z-index: 9999 !important;
+  background: #eafaf3 !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s;
+}
+
+.sat-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sat-footer-logo {
+  height: 32px;
+  width: auto;
+}
+.sat-footer-email {
+  color: #222;
+  font-size: 1em;
+  font-weight: 500;
+}
+.sat-footer-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.sat-footer-question {
+  background: #111;
+  color: #fff;
+  border-radius: 10px;
+  padding: 8px 28px;
+  font-size: 1.08em;
+  font-weight: 700;
+  margin: 0 12px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+}
+.sat-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.sat-footer-btn {
+  background: #4fd19e;
+  color: #fff;
+  border: none;
+  border-radius: 22px;
+  padding: 8px 32px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.sat-footer-btn:disabled {
+  background: #bdebd7;
+  color: #fff;
+  cursor: not-allowed;
+}
+.sat-footer-btn:hover:not(:disabled) {
+  background: #1bb184;
+}
+.sat-navigator-popup {
+  position: fixed;
+  left: 50%;
+  bottom: 70px;
+  transform: translateX(-50%);
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px #0002;
+  padding: 28px 36px 18px 36px;
+  z-index: 100;
+  min-width: 340px;
+  min-height: 180px;
+  border: 1.5px solid #e0e0e0;
+  text-align: center;
+}
+.sat-navigator-popup:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  border-width: 12px 12px 0 12px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+  filter: drop-shadow(0 2px 2px #0001);
+}
+.sat-navigator-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+.sat-navigator-dot {
+  width: 36px; height: 36px;
+  border: 2px dashed #222;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 1.1em;
+  background: #f8f8f8;
+  cursor: pointer;
+  position: relative;
+  transition: border 0.18s, background 0.18s;
+}
+.sat-navigator-dot.current {
+  border-style: solid;
+  border-color: #1bb184;
+  background: #e0f7ef;
+}
+.sat-navigator-dot.answered {
+  background: #d0f5e8;
+  border-color: #1bb184;
+}
+.sat-navigator-dot.review {
+  border-color: #e74c3c;
+}
+.sat-navigator-dot .sat-dot-pin {
+  position: absolute;
+  left: -10px; top: 2px;
+  font-size: 1.1em;
+  color: #1bb184;
+}
+.sat-navigator-dot .sat-dot-flag {
+  position: absolute;
+  right: -10px; top: 2px;
+  font-size: 1.1em;
+  color: #e74c3c;
+}
+.sat-navigator-popup hr {
+  margin: 12px 0;
+  border: none;
+  border-top: 1.5px solid #e0e0e0;
+}
+.sat-navigator-popup .sat-navigator-legend {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.98em;
+  margin-bottom: 6px;
+}
+.sat-navigator-popup .sat-navigator-legend span {
+  display: flex; align-items: center; gap: 4px;
+}
+.sat-navigator-popup .sat-navigator-legend .sat-dot-pin { color: #1bb184; }
+.sat-navigator-popup .sat-navigator-legend .sat-dot-flag { color: #e74c3c; }
+.sat-navigator-popup .sat-navigator-legend .sat-navigator-dot { border-style: dashed; }
+.sat-navigator-popup .sat-navigator-legend .sat-navigator-dot.answered { background: #d0f5e8; border-color: #1bb184; }
+.sat-navigator-popup .sat-navigator-legend .sat-navigator-dot.review { border-color: #e74c3c; }
+.sat-navigator-popup .sat-navigator-close {
+  position: absolute;
+  right: 18px; top: 12px;
+  font-size: 1.3em;
+  color: #aaa;
+  cursor: pointer;
+}
+.sat-navigator-popup .sat-navigator-close:hover {
+  color: #222;
+}
+.sat-navigator-popup .sat-navigator-review-btn {
+  margin-top: 18px;
+  background: #1bb184;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 32px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.sat-navigator-popup .sat-navigator-review-btn:hover {
+  background: #159c6e;
+}
+
+/* SAT 시험 중 nav가 사라질 때 전체 화면을 꽉 채우도록 */
+#main-content.fullscreen {
+  margin-left: 0 !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  transition: all 0.2s;
+  /* 필요시 padding 조정 */
+}
+
+body, #main-content {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.sat-question-area.math-single {
+  margin: 0 auto;
+  max-width: 540px;
+  min-width: 320px;
+  width: 100%;
+  box-shadow: 0 2px 8px #e0e0e0;
+  border-radius: 12px;
+  background: #fff;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.sat-popup {
+  position: fixed;
+  top: 60px;
+  right: 60px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px #0002;
+  z-index: 9999;
+  padding: 0;
+  min-width: 420px;
+}
+.sat-popup-header {
+  font-weight: 700;
+  font-size: 1.1em;
+  padding: 12px 18px;
+  border-bottom: 1px solid #eee;
+  background: #f7f7f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sat-popup-close {
+  cursor: pointer;
+  font-size: 1.3em;
+  color: #888;
+}
+.sat-popup-close:hover {
+  color: #222;
+}
+
+.sat-annotation {
+  background: #fff8c6;
+  border-bottom: 2px solid #e6c200;
+  cursor: pointer;
+  position: relative;
+}
+.sat-annotation[data-note]:hover::after {
+  content: attr(data-note);
+  position: absolute;
+  left: 0; top: 120%;
+  background: #fffbe6;
+  color: #222;
+  border: 1px solid #e6c200;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.98em;
+  white-space: pre-line;
+  z-index: 100;
+  min-width: 120px;
+  max-width: 320px;
+  box-shadow: 0 2px 8px #0002;
+}
+
+.result-table table {
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto;
+  font-size: 1.05em;
+}
+.result-table th, .result-table td {
+  border-bottom: 1px solid #e0e0e0;
+}
+.result-table tr:last-child td {
+  border-bottom: none;
+}
