@@ -85,6 +85,9 @@ function startTest(idx) {
   } else {
     sectionTime = 10 * 60; // 기본값
   }
+  
+  // 기존 타이머 정지 및 초기화
+  stopTimer();
   window.sectionTimerRemain = sectionTime;
   window.sectionTimerStarted = false;
 
@@ -224,24 +227,33 @@ async function loadTestPage() {
       loadTestPage();
     };
   } else {
-    // 마지막 문제: Next 활성화, "Finish"로 표시
+    // 마지막 문제: Next는 "Finish"로 표시하고 다음 섹션 처리
     nextBtn.disabled = false;
     nextBtn.textContent = "Finish";
     nextBtn.onclick = () => {
       saveCurrentAnnotation();
-      stopTimer();
-      showResult();
+      // 다음 섹션이 있는지 확인하고 없으면 결과 페이지로
+      if (window.nextSection && !window.nextSection()) {
+        stopTimer();
+        showResult();
+      }
     };
   }
   backBtn.disabled = currentQuestionIdx === 0;
 
   // 타이머 중앙 배치 (sat-header-center)
-  if (!window.sectionTimerStarted) {
-    window.sectionTimerStarted = true;
-    startTimer(window.sectionTimerRemain, () => {
-      alert("섹션 시간이 종료되었습니다!");
-      showResult();
-    });
+  const timerDiv = document.getElementById('timer');
+  if (timerDiv) {
+    if (!window.sectionTimerStarted) {
+      window.sectionTimerStarted = true;
+      startTimer(window.sectionTimerRemain, () => {
+        alert("섹션 시간이 종료되었습니다!");
+        showResult();
+      });
+    } else {
+      // 이미 시작된 타이머면 시간만 업데이트
+      timerDiv.textContent = formatTime(window.sectionTimerRemain || 0);
+    }
   }
 
   // 하단 문제 번호 클릭 시 네비게이터 팝업
@@ -507,11 +519,33 @@ function startTimer(seconds, onEnd) {
   let remain = seconds;
   window.sectionTimerRemain = remain;
   const timerDiv = document.getElementById('timer');
+  
+  // 타이머 엘리먼트 확인
+  if (!timerDiv) {
+    console.error("타이머 엘리먼트를 찾을 수 없습니다!");
+    return;
+  }
+  
+  // 기존 타이머가 있으면 제거
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
+  
   timerDiv.textContent = formatTime(remain);
   timerInterval = setInterval(() => {
     remain--;
     window.sectionTimerRemain = remain;
-    timerDiv.textContent = formatTime(remain);
+    
+    // 타이머 엘리먼트가 여전히 존재하는지 확인
+    const currentTimerDiv = document.getElementById('timer');
+    if (currentTimerDiv) {
+      currentTimerDiv.textContent = formatTime(remain);
+    } else {
+      // 타이머 엘리먼트가 없으면 인터벌 정지
+      clearInterval(timerInterval);
+      return;
+    }
+    
     if (remain <= 0) {
       clearInterval(timerInterval);
       onEnd();
@@ -536,3 +570,7 @@ function formatTime(sec) {
   const s = String(sec%60).padStart(2, '0');
   return `${m}:${s}`;
 }
+
+window.startTest = startTest;
+window.loadTestPage = loadTestPage;
+window.gotoQuestion = gotoQuestion;
