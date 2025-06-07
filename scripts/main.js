@@ -457,7 +457,7 @@ let tests = [
   async function initApp() {
     try {
       // test 폴더에서 test.json 파일을 먼저 로드
-      const response = await fetch('test/test.json');
+      const response = await fetch('test/realtest.json');
       if (response.ok) {
         const data = await response.json();
         
