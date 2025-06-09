@@ -79,7 +79,7 @@ function startTest(idx) {
   let sectionTime = 0;
   const sectionTitle = tests[idx].sectionTitle || "";
   if (sectionTitle.includes("Reading")) {
-    sectionTime = 64 * 60; // 64분
+    sectionTime = 27 * 60; // 64분
   } else if (sectionTitle.includes("Math")) {
     sectionTime = 70 * 60; // 70분
   } else {
